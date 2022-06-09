@@ -50,4 +50,4 @@ NODE_ENV=prod node ./index.js
 
 ## Authors
 
-Rimantas: [Github](https://github.com/belauzas)
+Zilvinas: [Github](https://github.com/Zilvis0)
