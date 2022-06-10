@@ -20,7 +20,7 @@ This project is for educational porpuses only. Pull request are welcome, but pri
 1. Clone
 
 ```
-$ git clone https://github.com/front-end-by-rimantas/38-grupe-server
+$ git clone https://github.com/Zilvis0/38-BIT-server-project
 ```
 
 2. Install
