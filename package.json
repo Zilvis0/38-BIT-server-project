@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "nodemon ./index.js",
     "prod": "",
-    "testing": "nodemon ./test.js",
+    "testing": "nodemon ./test-class-extension.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
