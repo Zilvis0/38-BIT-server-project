@@ -1,0 +1,21 @@
+body{
+    background-color: teal;
+    color: black;
+}
+
+header.container{
+    background-color: aliceblue;
+    display:flex;
+    justify-content: space-between;
+    
+}
+header.row{
+    display: flex;
+    justify-content: space-between;
+}
+main.container{
+    background-color: bisque;
+}
+footer.container{
+    background-color: aqua;
+}
