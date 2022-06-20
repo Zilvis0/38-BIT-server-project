@@ -11,12 +11,19 @@ if (submitDOM) {
 
         const data = {};
 
+        notificationsDOM.classList.remove('show');
+        notificationsDOM.innerText = '';
+
         for (const inputDOM of inputsDOM) {
             if (inputDOM.type !== 'checkbox') {
-                data[inputDOM.name] = inputDOM.value;
-                const validationRule = inputDOM.dataset.validation;
-                const validationResult = IsValid[validationRule]();
-                console.log(validationResult);
+                const rule = inputDOM.dataset.validation;
+                const result = IsValid[rule](inputDOM.value);
+                if (result === true) {
+                    data[inputDOM.name] = inputDOM.value;
+                } else {
+                    notificationsDOM.classList.add('show');
+                    notificationsDOM.innerHTML += `<p>${result}</p>`;
+                }
             } else {
                 data[inputDOM.name] = inputDOM.checked;
             }

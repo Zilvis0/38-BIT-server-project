@@ -1,14 +1,29 @@
 class IsValid {
-    static fullname() {
-        return [true, 'fullname'];
+    static fullname(str) {
+        if (str.length < 2) {
+            return 'Per trumpas fullname tekstas';
+        }
+
+        const parts = str.split(' ');
+        if (parts.length < 2) {
+            return 'Per mazai fullname zodziu';
+        }
+
+        return true;
     }
 
-    static email() {
-        return [true, 'email'];
+    static email(str) {
+        if (str.length < 2) {
+            return 'Per trumpas email tekstas';
+        }
+        return true;
     }
 
-    static password() {
-        return [true, 'password'];
+    static password(str) {
+        if (str.length < 2) {
+            return 'Per trumpas password tekstas';
+        }
+        return true;
     }
 }
 
