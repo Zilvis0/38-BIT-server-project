@@ -1,0 +1,10 @@
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header > nav {
+    display: flex;
+    gap: 20px;
+}

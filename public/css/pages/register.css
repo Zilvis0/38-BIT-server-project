@@ -11,3 +11,8 @@
 @import '../components/header.css';
 
 /* CUSTOM STYLE BELOW THIS COMMENT LINE, PLEASE */
+main.container > .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

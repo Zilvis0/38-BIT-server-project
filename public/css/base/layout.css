@@ -1,0 +1,33 @@
+body {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 15px 1fr 15px;
+    padding: 20px 0;
+}
+
+.container > .row {
+    grid-area: 1/2;
+    padding: 10px 0;
+}
+
+@media (min-width: 700px) {
+    .container {
+        grid-template-columns: 1fr 500px 1fr;
+    }
+}
+
+@media (min-width: 1000px) {
+    .container {
+        grid-template-columns: 1fr 900px 1fr;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        grid-template-columns: 1fr 1100px 1fr;
+    }
+}
