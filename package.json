@@ -11,12 +11,13 @@
     "dev": "nodemon ./index.js",
     "prod": "",
     "testing": "nodemon ./test-class-extension.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "Zilvis0",
   "license": "MIT",
   "devDependencies": {
+    "jest": "^28.1.1",
     "nodemon": "^2.0.16"
   }
 }
