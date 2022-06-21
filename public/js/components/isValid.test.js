@@ -181,3 +181,71 @@ describe('Gauname tinkamas reiksmes', () => {
         expect(msg).toBe('OK');
     })
 })
+
+describe('Gaudome email netinkamus tipus', () => {
+    test('no params', () => {
+        const [err, msg] = IsValid.email();
+        expect(err).toBe(true);
+        expect(msg).toBe('Neduotas parametras');
+    })
+
+    test('number', () => {
+        const [err, msg] = IsValid.email(1);
+        expect(err).toBe(true);
+        expect(msg).toBe('Netinkamas tipas, turi buti "string"');
+    })
+
+    test('boolean', () => {
+        const [err, msg] = IsValid.email(true);
+        expect(err).toBe(true);
+        expect(msg).toBe('Netinkamas tipas, turi buti "string"');
+    })
+
+    test('array', () => {
+        const [err, msg] = IsValid.email([]);
+        expect(err).toBe(true);
+        expect(msg).toBe('Netinkamas tipas, turi buti "string"');
+    })
+
+    test('null', () => {
+        const [err, msg] = IsValid.email(null);
+        expect(err).toBe(true);
+        expect(msg).toBe('Netinkamas tipas, turi buti "string"');
+    })
+
+    test('object', () => {
+        const [err, msg] = IsValid.email({});
+        expect(err).toBe(true);
+        expect(msg).toBe('Netinkamas tipas, turi buti "string"');
+    })
+
+    test('function', () => {
+        const [err, msg] = IsValid.email(() => { });
+        expect(err).toBe(true);
+        expect(msg).toBe('Netinkamas tipas, turi buti "string"');
+    })
+})
+
+describe('Gauname netinkamas email reiksmes', () => {
+    
+    test('email symbol count', () => {
+        const [err, msg] = IsValid.email('');
+        expect(err).toBe(true);
+        expect(msg).toBe('Per trumpas email, turi buti ne maziau 6 simboliu');
+    })
+
+    test('@ symbol', () => {
+        const [err, msg] = IsValid.email('asd.asd');
+        expect(err).toBe(true);
+        expect(msg).toBe('Neturi butino @ zenklo');
+    })
+
+})
+
+describe('Gauname tinkamas email reiksmes', () => {
+    test('valid email', () => {
+        const [err, msg] = IsValid.email('Petras@Petraitis.lt');
+        expect(err).toBe(false);
+        expect(msg).toBe('OK');
+    })
+})

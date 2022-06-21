@@ -50,9 +50,26 @@ class IsValid {
     }
 
     static email(str) {
-        if (str.length < 2) {
-            return [true, 'Per trumpas email tekstas'];
+        if (str === undefined) {
+            return [true, 'Neduotas parametras'];
         }
+        if (typeof str !== 'string') {
+            return [true, 'Netinkamas tipas, turi buti "string"'];
+        }
+
+        str = str.trim();
+
+        const necessarySimbol = "@";
+
+        const minEmailSymbols = 6;
+        if (str.length < minEmailSymbols) {
+            return [true, 'Per trumpas email, turi buti ne maziau 6 simboliu'];
+        }
+        
+        if(!str.includes(necessarySimbol)){
+            return [true, `Neturi butino ${necessarySimbol} zenklo`]
+        }
+
 
         return [false, 'OK'];
     }
