@@ -11,7 +11,8 @@
     "dev": "nodemon ./index.js",
     "prod": "",
     "testing": "nodemon ./test-class-extension.js",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --passWithNoTests",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll --passWithNoTests"
   },
   "keywords": [],
   "author": "Zilvis0",

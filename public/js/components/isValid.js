@@ -1,29 +1,28 @@
 class IsValid {
     static fullname(str) {
-        if (str.length < 2) {
-            return [true, 'Per trumpas fullname tekstas'];
+        if (str === undefined) {
+            return [true, 'Neduotas parametras'];
         }
-
-        const parts = str.split(' ');
-        if (parts.length < 2) {
-            return [true, 'Per mazai fullname zodziu'];
+        if (typeof str !== 'string') {
+            return [true, 'Netinkamas tipas, turi buti "string"'];
         }
-
-        return [false, "ok"];
+        return [false, 'OK'];
     }
 
     static email(str) {
         if (str.length < 2) {
             return [true, 'Per trumpas email tekstas'];
         }
-        return [false, "ok"];
+
+        return [false, 'OK'];
     }
 
     static password(str) {
         if (str.length < 2) {
             return [true, 'Per trumpas password tekstas'];
         }
-        return [false, "ok"];
+
+        return [false, 'OK'];
     }
 }
 
