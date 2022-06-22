@@ -106,8 +106,13 @@ class IsValid {
     }
 
     static password(str) {
-        if (str.length < 2) {
-            return [true, 'Per trumpas password tekstas'];
+        const minPasswordLength = 12;
+        if (typeof str !== "string") {
+            return [true, 'Netinkamas tipas, turi buti "string"'];
+        }
+
+        if (str.length < minPasswordLength) {
+            return [true, 'Per trumpas tekstas, turi buti minimum 12 simboliai'];
         }
 
         return [false, 'OK'];
