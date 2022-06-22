@@ -59,18 +59,32 @@ class IsValid {
 
         str = str.trim();
 
-        const necessarySimbol = "@";
+        const allowedSymbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@-.";
 
         const minEmailSymbols = 6;
         if (str.length < minEmailSymbols) {
             return [true, 'Per trumpas email, turi buti ne maziau 6 simboliu'];
         }
         
-        if(!str.includes(necessarySimbol)){
-            return [true, `Neturi butino ${necessarySimbol} zenklo`]
+        let countingA = 0;
+
+        for (let symbol of str){
+            if(!allowedSymbols.includes(symbol)){
+                return [true, `Neleistinas ${symbol} zenklas`];
+            }
         }
-
-
+        for (let symbol of str){
+            if (symbol === "@"){
+                countingA++;
+            }
+        }
+        if (countingA<1){
+            return [true, "Butinas @ zenklas"];
+        }
+        if (countingA>1){
+            return [true, "Galimas tik vienas @ zenklas"];
+    }
+        
         return [false, 'OK'];
     }
 

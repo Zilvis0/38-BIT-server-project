@@ -234,12 +234,29 @@ describe('Gauname netinkamas email reiksmes', () => {
         expect(msg).toBe('Per trumpas email, turi buti ne maziau 6 simboliu');
     })
 
-    test('@ symbol', () => {
-        const [err, msg] = IsValid.email('asd.asd');
+    test('allowed symbols', () => {
+        const [err, msg] = IsValid.email('asd#asd');
         expect(err).toBe(true);
-        expect(msg).toBe('Neturi butino @ zenklo');
+        expect(msg).toBe(`Neleistinas # zenklas`);
+    })
+    
+    test('allowed symbols2', () => {
+        const [err, msg] = IsValid.email('asdasd%');
+        expect(err).toBe(true);
+        expect(msg).toBe(`Neleistinas % zenklas`);
     })
 
+    test('required @ symbol', () => {
+        const [err, msg] = IsValid.email('asaa.sd');
+        expect(err).toBe(true);
+        expect(msg).toBe('Butinas @ zenklas');
+    })
+
+    test('only one @ symbol', () => {
+        const [err, msg] = IsValid.email('asd@@a@sd');
+        expect(err).toBe(true);
+        expect(msg).toBe('Galimas tik vienas @ zenklas');
+    })
 })
 
 describe('Gauname tinkamas email reiksmes', () => {
