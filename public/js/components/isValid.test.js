@@ -453,7 +453,7 @@ describe('Password', () => {
     })
     describe('Gauname netinkamas reiksmes', () => {
         test('short pasw', () => {
-            const [err, msg] = IsValid.password('1234567');
+            const [err, msg] = IsValid.password('12345678910');
             expect(err).toBe(true);
             expect(msg).toBe('Per trumpas tekstas, turi buti minimum 12 simboliai');
         })

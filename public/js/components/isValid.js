@@ -112,7 +112,7 @@ class IsValid {
         }
 
         if (str.length < minPasswordLength) {
-            return [true, 'Per trumpas tekstas, turi buti minimum 12 simboliai'];
+            return [true, `Per trumpas tekstas, turi buti minimum ${minPasswordLength} simboliai`];
         }
 
         return [false, 'OK'];
