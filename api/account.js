@@ -1,4 +1,5 @@
 import { IsValid } from "../lib/is-valid/IsValid.js";
+import { utils } from "../lib/utils.js";
 
 const handler = {};
 
@@ -37,10 +38,13 @@ handler._innerMethods.post = (data, callback) => {
         - isitikinti, jog atejusiame objekte nera kitu key's apart: email, fullname ir password
     */
 
-    const allowedKeys = ['fullname', 'email', 'pass'];
-    if (Object.keys(payload).length > allowedKeys.length) {
+    const [validErr, validMsg] = utils.objectValidator(payload, {
+        required: ['fullname', 'email', 'pass'],
+    });
+
+    if (validErr) {
         return callback(400, {
-            msg: 'Atsiustuose duomenyse gali buti tik: fullname, email ir pass',
+            msg: validMsg,
         });
     }
 
