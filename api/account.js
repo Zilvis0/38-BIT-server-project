@@ -229,66 +229,15 @@ handler._innerMethods.delete = async (data, callback) => {
         });
     }
 
-    const [validErr, validMsg] = utils.objectValidator(payload, {
-        optional: ['fullname', 'pass'],
-    });
+    const [deleteErr] = await file.delete('accounts', email + '.json');
 
-    if (validErr) {
-        return callback(400, {
-            msg: validMsg,
-        });
-    }
-
-    const { fullname, pass } = payload;
-
-    if (fullname) {
-        const [fullnameErr, fullnameMsg] = IsValid.fullname(fullname);
-        if (fullnameErr) {
-            return callback(400, {
-                msg: fullnameMsg,
-            });
-        }
-    }
-
-    if (pass) {
-        const [passErr, passMsg] = IsValid.password(pass);
-        if (passErr) {
-            return callback(400, {
-                msg: passMsg,
-            });
-        }
-    }
-
-    const [readErr, readMsg] = await file.read('accounts', email + '.json');
-    if (readErr) {
-        return callback(404, {
-            msg: 'Toks vartotojas neegzistouja, arba nepavyko gauti duomenu del teisiu trukumo',
-        });
-    }
-
-    const [parseErr, userData] = utils.parseJSONtoObject(readMsg);
-    if (parseErr) {
+    if (deleteErr) {
         return callback(500, {
-            msg: 'Nepavyko atnaujinti paskyros informacijos, del vidines serverio klaidos',
-        });
-    }
-
-    if (fullname) {
-        userData.fullname = fullname;
-    }
-    if (pass) {
-        userData.hashedPassword = utils.hash(pass)[1];
-    }
-
-    const [updateErr] = await file.update('accounts', email + '.json', userData);
-
-    if (updateErr) {
-        return callback(500, {
-            msg: 'Nepavyko atnaujinti paskyros informacijos, del vidines serverio klaidos',
+            msg: 'Nepavyko istrinti paskyros informacijos, del vidines serverio klaidos',
         });
     }
     return callback(200, {
-        msg: 'Account: delete',
+        msg: 'Account: deleted',
     });
 }
 
