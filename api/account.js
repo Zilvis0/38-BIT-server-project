@@ -218,7 +218,7 @@ handler._innerMethods.put = async (data, callback) => {
 }
 
 // DELETE
-handler._innerMethods.delete = (data, callback) => {
+handler._innerMethods.delete = async (data, callback) => {
     const { payload } = data;
     const email = data.searchParams.get('email');
 
@@ -287,7 +287,6 @@ handler._innerMethods.delete = (data, callback) => {
             msg: 'Nepavyko atnaujinti paskyros informacijos, del vidines serverio klaidos',
         });
     }
-
     return callback(200, {
         msg: 'Account: delete',
     });
