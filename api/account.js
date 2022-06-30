@@ -88,6 +88,7 @@ handler._innerMethods.post = async (data, callback) => {
 
     delete payload.pass;
     payload.hashedPassword = utils.hash(pass)[1];
+    payload.lastLoginDate = 0;
 
     const [createErr] = await file.create('accounts', email + '.json', payload);
     if (createErr) {
