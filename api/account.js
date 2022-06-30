@@ -72,8 +72,8 @@ handler._innerMethods.post = async (data, callback) => {
     */
 
     // accounts/${user-email}.json
-    const [readErr] = await file.read('accounts', email + '.json');
-    if (!readErr) {
+    const [delErr] = await file.del('accounts', email + '.json');
+    if (!delErr) {
         return callback(400, {
             msg: 'Paskyra jau egzistuoja',
         })
@@ -118,14 +118,14 @@ handler._innerMethods.get = async (data, callback) => {
     // 3) Bandom perskaityti vartotojo duomenis
     // - jei ERROR - vartotojas neegzistuoja
     // - jei OK - vartotojas egzistuoja ir gavom jo duomenis
-    const [readErr, readMsg] = await file.read('accounts', email + '.json');
-    if (readErr) {
+    const [delErr, delMsg] = await file.del('accounts', email + '.json');
+    if (delErr) {
         return callback(404, {
             msg: 'Toks vartotojas neegzistouja, arba nepavyko gauti duomenu del teisiu trukumo',
         });
     }
 
-    const [userErr, userData] = utils.parseJSONtoObject(readMsg);
+    const [userErr, userData] = utils.parseJSONtoObject(delMsg);
     if (userErr) {
         return callback(500, {
             msg: 'Nepavyko nuskaityti duomenu',
@@ -183,14 +183,14 @@ handler._innerMethods.put = async (data, callback) => {
         }
     }
 
-    const [readErr, readMsg] = await file.read('accounts', email + '.json');
-    if (readErr) {
+    const [delErr, delMsg] = await file.del('accounts', email + '.json');
+    if (delErr) {
         return callback(404, {
             msg: 'Toks vartotojas neegzistouja, arba nepavyko gauti duomenu del teisiu trukumo',
         });
     }
 
-    const [parseErr, userData] = utils.parseJSONtoObject(readMsg);
+    const [parseErr, userData] = utils.parseJSONtoObject(delMsg);
     if (parseErr) {
         return callback(500, {
             msg: 'Nepavyko atnaujinti paskyros informacijos, del vidines serverio klaidos',
@@ -219,8 +219,77 @@ handler._innerMethods.put = async (data, callback) => {
 
 // DELETE
 handler._innerMethods.delete = (data, callback) => {
+    const { payload } = data;
+    const email = data.searchParams.get('email');
+
+    const [emailErr, emailMsg] = IsValid.email(email);
+    if (emailErr) {
+        return callback(400, {
+            msg: emailMsg,
+        });
+    }
+
+    const [validErr, validMsg] = utils.objectValidator(payload, {
+        optional: ['fullname', 'pass'],
+    });
+
+    if (validErr) {
+        return callback(400, {
+            msg: validMsg,
+        });
+    }
+
+    const { fullname, pass } = payload;
+
+    if (fullname) {
+        const [fullnameErr, fullnameMsg] = IsValid.fullname(fullname);
+        if (fullnameErr) {
+            return callback(400, {
+                msg: fullnameMsg,
+            });
+        }
+    }
+
+    if (pass) {
+        const [passErr, passMsg] = IsValid.password(pass);
+        if (passErr) {
+            return callback(400, {
+                msg: passMsg,
+            });
+        }
+    }
+
+    const [delErr, delMsg] = await file.del('accounts', email + '.json');
+    if (delErr) {
+        return callback(404, {
+            msg: 'Toks vartotojas neegzistouja, arba nepavyko gauti duomenu del teisiu trukumo',
+        });
+    }
+
+    const [parseErr, userData] = utils.parseJSONtoObject(delMsg);
+    if (parseErr) {
+        return callback(500, {
+            msg: 'Nepavyko atnaujinti paskyros informacijos, del vidines serverio klaidos',
+        });
+    }
+
+    if (fullname) {
+        userData.fullname = fullname;
+    }
+    if (pass) {
+        userData.hashedPassword = utils.hash(pass)[1];
+    }
+
+    const [updateErr] = await file.update('accounts', email + '.json', userData);
+
+    if (updateErr) {
+        return callback(500, {
+            msg: 'Nepavyko atnaujinti paskyros informacijos, del vidines serverio klaidos',
+        });
+    }
+
     return callback(200, {
-        msg: 'Account: delete',
+        msg: 'Account: deleted',
     });
 }
 
