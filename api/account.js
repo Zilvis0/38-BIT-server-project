@@ -163,21 +163,29 @@ handler._innerMethods.put = async (data, callback) => {
         });
     }
 
+    // cia kazkur klaida: start
     const { fullname, pass } = payload;
 
-    const [fullnameErr, fullnameMsg] = IsValid.fullname(fullname);
-    if (fullnameErr) {
-        return callback(400, {
-            msg: fullnameMsg,
-        });
+    console.log(fullname, pass);
+
+    if (fullname) {
+        const [fullnameErr, fullnameMsg] = IsValid.fullname(fullname);
+        if (fullnameErr) {
+            return callback(400, {
+                msg: fullnameMsg,
+            });
+        }
     }
 
-    const [passErr, passMsg] = IsValid.password(pass);
-    if (passErr) {
-        return callback(400, {
-            msg: passMsg,
-        });
+    if (pass) {
+        const [passErr, passMsg] = IsValid.password(pass);
+        if (passErr) {
+            return callback(400, {
+                msg: passMsg,
+            });
+        }
     }
+    // cia kazkur klaida: end
 
     const [readErr, readMsg] = await file.read('accounts', email + '.json');
     if (readErr) {
@@ -193,9 +201,16 @@ handler._innerMethods.put = async (data, callback) => {
         });
     }
 
+    userData.fullname = fullname;
+    userData.pass = pass;
 
+    const [updateErr] = await file.update('accounts', email + '.json', userData);
 
-    // const [updateErr, updateMsg] = await file.update('accounts', email + '.json', payload);
+    if (updateErr) {
+        return callback(500, {
+            msg: 'Nepavyko atnaujinti paskyros informacijos, del vidines serverio klaidos',
+        });
+    }
 
     return callback(200, {
         msg: 'Vartotojo informacija sekmingai atnaujinta',
