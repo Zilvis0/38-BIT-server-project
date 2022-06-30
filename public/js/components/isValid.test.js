@@ -392,96 +392,40 @@ describe('Email', () => {
     })
 })
 
-describe('Password', () => {
-    describe('Gaudome netinkamus tipus', () => {
-        test('no params', () => {
-            const [err, msg] = IsValid.password();
-            expect(err).toBe(true);
-            expect(msg).toBe('Netinkamas tipas, turi buti "string"');
-        })
+// describe('Password', () => {
+//     describe('Gaudome netinkamus tipus', () => {
+//         test('no params', () => {
+//             const [err, msg] = IsValid.password();
+//             expect(err).toBe(true);
+//             expect(msg).toBe('Neduotas parametras');
+//         })
+//     })
 
-        test('number', () => {
-            const [err, msg] = IsValid.password(1);
-            expect(err).toBe(true);
-            expect(msg).toBe('Netinkamas tipas, turi buti "string"');
-        })
+//     describe('Gauname netinkamas reiksmes', () => {
+//         test('empty string', () => {
+//             const [err, msg] = IsValid.password('');
+//             expect(err).toBe(true);
+//             expect(msg).toBe('Per trumpas tekstas, turi buti minimum 8 simboliai');
+//         })
+//     })
 
-        test('boolean', () => {
-            const [err, msg] = IsValid.password(true);
-            expect(err).toBe(true);
-            expect(msg).toBe('Netinkamas tipas, turi buti "string"');
-        })
+//     describe('Gauname tinkamas reiksmes', () => {
+//         test('ok (1)', () => {
+//             const [err, msg] = IsValid.password('qwertyui');
+//             expect(err).toBe(false);
+//             expect(msg).toBe('OK');
+//         })
 
-        test('array', () => {
-            const [err, msg] = IsValid.password([]);
-            expect(err).toBe(true);
-            expect(msg).toBe('Netinkamas tipas, turi buti "string"');
-        })
+//         test('ok (2)', () => {
+//             const [err, msg] = IsValid.password('AdeD526665');
+//             expect(err).toBe(false);
+//             expect(msg).toBe('OK');
+//         })
 
-        test('null', () => {
-            const [err, msg] = IsValid.password(null);
-            expect(err).toBe(true);
-            expect(msg).toBe('Netinkamas tipas, turi buti "string"');
-        })
-
-        test('object', () => {
-            const [err, msg] = IsValid.password({});
-            expect(err).toBe(true);
-            expect(msg).toBe('Netinkamas tipas, turi buti "string"');
-        })
-
-        test('function', () => {
-            const [err, msg] = IsValid.password(() => { });
-            expect(err).toBe(true);
-            expect(msg).toBe('Netinkamas tipas, turi buti "string"');
-        })
-    })
-}) 
-    describe('Gauname netinkamas reiksmes', () => {
-        test('empty string', () => {
-            const [err, msg] = IsValid.password('');
-            expect(err).toBe(true);
-            expect(msg).toBe('Per trumpas tekstas, turi buti minimum 12 simboliai');
-        })
-    })
-    describe('Gauname netinkamas reiksmes', () => {
-        test('short pasw', () => {
-            const [err, msg] = IsValid.password('215sdad');
-            expect(err).toBe(true);
-            expect(msg).toBe('Per trumpas tekstas, turi buti minimum 12 simboliai');
-        })
-    })
-    describe('Gauname netinkamas reiksmes', () => {
-        test('short pasw', () => {
-            const [err, msg] = IsValid.password('12345678910');
-            expect(err).toBe(true);
-            expect(msg).toBe('Per trumpas tekstas, turi buti minimum 12 simboliai');
-        })
-    })
-    describe('Gauname netinkamas reiksmes', () => {
-        test('short pasw', () => {
-            const [err, msg] = IsValid.password('qwerasd');
-            expect(err).toBe(true);
-            expect(msg).toBe('Per trumpas tekstas, turi buti minimum 12 simboliai');
-        })
-    })
-
-    describe('Gauname tinkamas reiksmes', () => {
-        test('ok (1)', () => {
-            const [err, msg] = IsValid.password('1234567891011');
-            expect(err).toBe(false);
-            expect(msg).toBe('OK');
-        })
-
-        test('ok (2)', () => {
-            const [err, msg] = IsValid.password('AdeD5266652A');
-            expect(err).toBe(false);
-            expect(msg).toBe('OK');
-        })
-
-        test('ok (3)', () => {
-            const [err, msg] = IsValid.password('!@#$%^&*./?<>{}+-');
-            expect(err).toBe(false);
-            expect(msg).toBe('OK');
-        })
-    })
+//         test('ok (3)', () => {
+//             const [err, msg] = IsValid.password('./?<>{}+-');
+//             expect(err).toBe(false);
+//             expect(msg).toBe('OK');
+//         })
+//     })
+// })

@@ -7,7 +7,9 @@ class Page404 extends PageTemplate {
     }
 
     mainHTML() {
-        return `<h1>404 page 🎅</h1>`;
+        return `<div class="row">
+                    <h1>404 page 🎅</h1>
+                </div>`;
     }
 }
 
