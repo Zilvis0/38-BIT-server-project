@@ -89,6 +89,8 @@ handler._innerMethods.post = async (data, callback) => {
     delete payload.pass;
     payload.hashedPassword = utils.hash(pass)[1];
     payload.lastLoginDate = 0;
+    payload.registrationData = Date.now();
+    payload.browser = data.user.browser;
 
     const [createErr] = await file.create('accounts', email + '.json', payload);
     if (createErr) {
@@ -220,9 +222,10 @@ handler._innerMethods.put = async (data, callback) => {
 
 // DELETE
 handler._innerMethods.delete = async (data, callback) => {
-    const { payload } = data;
+    // 1) suzinoti apie kuri vartotoja norima gauti duomenis
     const email = data.searchParams.get('email');
 
+    // 2) Patikriname ar gautas email yra email formato
     const [emailErr, emailMsg] = IsValid.email(email);
     if (emailErr) {
         return callback(400, {
@@ -230,15 +233,17 @@ handler._innerMethods.delete = async (data, callback) => {
         });
     }
 
-    const [deleteErr] = await file.delete('accounts', email + '.json');
+    // 3) Trinam paskyra
+    const [deleteErr] = await file.delete('accounts', email + '.json', userData);
 
     if (deleteErr) {
         return callback(500, {
             msg: 'Nepavyko istrinti paskyros informacijos, del vidines serverio klaidos',
         });
     }
+
     return callback(200, {
-        msg: 'Account: deleted',
+        msg: 'Paskyra istrinta sekmingai',
     });
 }
 
