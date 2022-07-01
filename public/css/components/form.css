@@ -13,6 +13,10 @@
     background-color: #f003;
     color: #333;
 }
+.form > .notifications.success {
+    border: 2px solid #0f0;
+    background-color: #0f03;
+}
 .form > .notifications.show {
     display: block;
 }
