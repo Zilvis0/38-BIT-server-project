@@ -124,7 +124,7 @@ handler._innerMethods.get = async (data, callback) => {
     const [readErr, readMsg] = await file.read('accounts', email + '.json');
     if (readErr) {
         return callback(404, {
-            msg: 'Toks token neegzistouja, arba nepavyko gauti duomenu del teisiu trukumo',
+            msg: 'Toks vartotojas neegzistouja, arba nepavyko gauti duomenu del teisiu trukumo',
         });
     }
 
@@ -189,14 +189,14 @@ handler._innerMethods.put = async (data, callback) => {
     const [readErr, readMsg] = await file.read('accounts', email + '.json');
     if (readErr) {
         return callback(404, {
-            msg: 'Toks token neegzistouja, arba nepavyko gauti duomenu del teisiu trukumo',
+            msg: 'Toks vartotojas neegzistouja, arba nepavyko gauti duomenu del teisiu trukumo',
         });
     }
 
     const [parseErr, userData] = utils.parseJSONtoObject(readMsg);
     if (parseErr) {
         return callback(500, {
-            msg: 'Nepavyko atnaujinti token informacijos, del vidines serverio klaidos',
+            msg: 'Nepavyko atnaujinti paskyros informacijos, del vidines serverio klaidos',
         });
     }
 
@@ -216,7 +216,7 @@ handler._innerMethods.put = async (data, callback) => {
     }
 
     return callback(200, {
-        msg: 'Token informacija sekmingai atnaujinta',
+        msg: 'Vartotojo informacija sekmingai atnaujinta',
     });
 }
 
